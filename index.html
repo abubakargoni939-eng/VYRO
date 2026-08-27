@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080b18" />
+  <title>VYRO — Connect. Discover. Challenge the World.</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div id="authScreen" class="auth-screen hidden">
+    <div class="auth-card">
+      <div class="brand big">VY<span>R</span>O</div>
+      <p class="tagline">Connect. Discover. Challenge the World.</p>
+      <div class="auth-tabs"><button id="loginTab" class="active">Login</button><button id="signupTab">Create account</button></div>
+      <form id="authForm">
+        <input id="authEmail" type="email" placeholder="Email address" required />
+        <input id="authPassword" type="password" placeholder="Password (6+ characters)" minlength="6" required />
+        <input id="authUsername" class="signup-only hidden" type="text" placeholder="Username" maxlength="30" />
+        <button class="primary" type="submit" id="authSubmit">Login</button>
+      </form>
+      <p id="authMessage" class="meta"></p>
+    </div>
+  </div>
+
+  <div class="app-shell hidden" id="appShell">
+    <header class="topbar">
+      <div class="brand">VY<span>R</span>O</div>
+      <div class="top-actions"><button id="searchBtn">⌕</button><button id="notifBtn">♧</button></div>
+    </header>
+    <main id="app"></main>
+    <nav class="bottom-nav">
+      <button class="nav active" data-page="home"><b>⌂</b><small>Home</small></button>
+      <button class="nav" data-page="world"><b>◎</b><small>World</small></button>
+      <button class="create" id="createBtn">+</button>
+      <button class="nav" data-page="inbox"><b>▢</b><small>Inbox</small></button>
+      <button class="nav" data-page="profile"><b>♙</b><small>Profile</small></button>
+    </nav>
+  </div>
+
+  <div class="modal hidden" id="postModal">
+    <div class="modal-card">
+      <div class="modal-head"><h2>Create on VYRO</h2><button id="closeModal">×</button></div>
+      <textarea id="postText" maxlength="280" placeholder="What's happening in your world?"></textarea>
+      <div class="modal-row"><button class="tool" type="button">▧ Photo</button><button class="tool" type="button">▶ Video</button><button class="tool" type="button">◉ Activity</button></div>
+      <button class="primary" id="publishBtn">Publish</button>
+    </div>
+  </div>
+  <script src="/config.js"></script>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
