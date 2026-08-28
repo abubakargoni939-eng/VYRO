@@ -10,27 +10,31 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// IMPORTANT: send Supabase config to browser
+// Supabase config from Render Environment Variables
 app.get('/config.js', (_req, res) => {
   res.type('application/javascript');
-  res.send(`
-    window.VYRO_CONFIG = {
-      SUPABASE_URL: ${JSON.stringify(process.env.SUPABASE_URL || '')},
-      SUPABASE_ANON_KEY: ${JSON.stringify(process.env.SUPABASE_ANON_KEY || '')}
-    };
-  `);
+  res.send(`window.VYRO_CONFIG = {
+  SUPABASE_URL: ${JSON.stringify(process.env.SUPABASE_URL || '')},
+  SUPABASE_ANON_KEY: ${JSON.stringify(process.env.SUPABASE_ANON_KEY || '')}
+};`);
 });
 
+// Serve files from public/
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/api/health', (_req, res) => {
-  res.json({ ok: true, app: 'VYRO', version: 'MVP 1.0' });
+  res.json({
+    ok: true,
+    app: 'VYRO',
+    version: 'MVP 1.0'
+  });
 });
 
-app.get('*splat', (_req, res) => {
+// Show VYRO homepage
+app.use((_req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`VYRO running on port ${PORT}`);
 });
