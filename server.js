@@ -22,7 +22,8 @@ app.get('/config.js', (_req, res) => {
 };`);
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve VYRO frontend from the root folder
+app.use(express.static(__dirname));
 
 app.get('/api/health', (_req, res) => {
   res.json({
@@ -34,7 +35,7 @@ app.get('/api/health', (_req, res) => {
 
 // VYRO frontend fallback
 app.use((_req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, '0.0.0.0', () => {
