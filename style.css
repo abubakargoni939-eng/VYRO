@@ -147,3 +147,403 @@
 .hidden {
   display: none !important;
 }
+/* ================================
+   VYRO UI POLISH V1
+   ================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.page {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 18px 120px;
+}
+
+/* ---------- HEADINGS ---------- */
+
+.page h1 {
+  font-size: clamp(32px, 8vw, 54px);
+  line-height: 1.05;
+  margin: 12px 0 18px;
+  letter-spacing: -1.5px;
+}
+
+.page h2 {
+  margin: 30px 0 16px;
+  font-size: 25px;
+  letter-spacing: -0.5px;
+}
+
+.page h3 {
+  margin: 10px 0;
+}
+
+/* ---------- HERO ---------- */
+
+.hero {
+  padding: 30px 24px;
+  margin-bottom: 30px;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at top right, rgba(180,70,255,.28), transparent 45%),
+    linear-gradient(135deg, #111a42, #25194e);
+  border: 1px solid rgba(160,130,255,.25);
+  box-shadow: 0 20px 50px rgba(0,0,0,.22);
+}
+
+.hero p {
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+/* ---------- SEARCH ---------- */
+
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin: 22px 0;
+}
+
+.search-box input {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-box button {
+  flex-shrink: 0;
+}
+
+/* ---------- HERO BUTTONS ---------- */
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.hero-actions button {
+  flex: 1;
+  min-width: 150px;
+}
+
+/* ---------- SERVICE GRID ---------- */
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.service-card {
+  min-height: 155px;
+  padding: 22px 18px;
+  text-align: left;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform .2s ease, border-color .2s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(190,120,255,.65);
+}
+
+.service-icon {
+  font-size: 34px;
+  margin-bottom: 12px;
+}
+
+.service-card h3 {
+  font-size: 18px;
+  margin: 0 0 8px;
+}
+
+.service-card .meta {
+  margin: 0;
+  font-size: 13px;
+}
+
+/* ---------- GENERAL CARDS ---------- */
+
+.card {
+  border-radius: 26px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.post-body {
+  padding: 24px;
+}
+
+.post-body p {
+  line-height: 1.6;
+}
+
+/* ---------- HOW IT WORKS ---------- */
+
+.challenge-list {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.challenge {
+  width: 100%;
+  padding: 22px;
+  border-radius: 24px;
+  text-align: left;
+  transition: transform .2s ease;
+}
+
+.challenge:hover {
+  transform: translateY(-3px);
+}
+
+.challenge h3,
+.challenge h2 {
+  margin: 8px 0;
+}
+
+.challenge .xp {
+  display: block;
+  line-height: 1.5;
+}
+
+/* ---------- STATS ---------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.stat {
+  min-width: 0;
+  padding: 18px 12px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.stat b {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.stat small {
+  font-size: 12px;
+}
+
+/* ---------- PROFILE ---------- */
+
+.profile-cover {
+  height: 250px;
+  border-radius: 30px;
+  margin-bottom: 70px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(40,150,255,.5), transparent 35%),
+    linear-gradient(135deg, #17265a, #812b91, #e34f70);
+  position: relative;
+  overflow: visible;
+}
+
+.profile-avatar {
+  position: absolute;
+  left: 28px;
+  bottom: -70px;
+
+  width: 140px;
+  height: 140px;
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 55px;
+
+  background: #0d1429;
+  border: 6px solid #080b18;
+  box-shadow: 0 12px 35px rgba(0,0,0,.35);
+}
+
+.profile-info {
+  padding: 0 28px;
+  margin-bottom: 25px;
+}
+
+.profile-info h1 {
+  margin-bottom: 8px;
+}
+
+.profile-info p {
+  line-height: 1.6;
+}
+
+/* ---------- BUTTONS ---------- */
+
+.primary,
+.tool {
+  min-height: 52px;
+  border-radius: 16px;
+  font-weight: 700;
+  padding: 12px 20px;
+}
+
+.primary {
+  box-shadow: 0 10px 25px rgba(130,60,255,.18);
+}
+
+.tool {
+  border: 1px solid rgba(150,150,220,.18);
+}
+
+/* ---------- INPUTS ---------- */
+
+input,
+textarea,
+select {
+  width: 100%;
+  min-height: 52px;
+  margin-bottom: 14px;
+  border-radius: 15px;
+  padding: 13px 15px;
+  font-size: 16px;
+}
+
+textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* ---------- TAG ---------- */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .4px;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 600px) {
+
+  .page {
+    padding: 18px 14px 115px;
+  }
+
+  .hero {
+    padding: 24px 18px;
+    border-radius: 26px;
+  }
+
+  .page h1 {
+    font-size: 36px;
+  }
+
+  .page h2 {
+    font-size: 23px;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  .search-box button {
+    width: 100%;
+  }
+
+  .service-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .service-card {
+    min-height: 145px;
+    padding: 18px 14px;
+    border-radius: 20px;
+  }
+
+  .service-icon {
+    font-size: 29px;
+  }
+
+  .service-card h3 {
+    font-size: 16px;
+  }
+
+  .stats {
+    gap: 8px;
+  }
+
+  .stat {
+    padding: 15px 7px;
+    border-radius: 17px;
+  }
+
+  .stat b {
+    font-size: 17px;
+  }
+
+  .profile-cover {
+    height: 210px;
+    border-radius: 25px;
+  }
+
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+    left: 20px;
+    bottom: -60px;
+    font-size: 45px;
+  }
+
+  .profile-info {
+    padding: 0 10px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions button {
+    width: 100%;
+  }
+
+  .post-body {
+    padding: 20px;
+  }
+}
+
+/* ---------- SMALL PHONES ---------- */
+
+@media (max-width: 380px) {
+
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+   }
