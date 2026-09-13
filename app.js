@@ -2246,6 +2246,220 @@ async function publishEntry(challenge) {
 ========================= */
 
 async function profile() {
+  const p = await ensureMarketplaceProfile();
+
+  shell(`
+    <div class="profile-cover">
+      <div class="profile-avatar">
+        ${esc((p?.username || 'V')[0]).toUpperCase()}
+      </div>
+    </div>
+
+    <div class="profile-info">
+      <h1>${esc(p?.display_name || p?.username || 'VYRO User')}</h1>
+
+      <p class="meta">
+        @${esc(p?.username || 'user')}
+        · ${p?.role === 'freelancer' ? 'Freelancer' : 'Client'}
+      </p>
+
+      <p>
+        ${esc(
+          p?.bio ||
+          'Welcome to VYRO Marketplace. Build your profile and connect with the world.'
+        )}
+      </p>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <b>${esc(p?.country || '🌍')}</b>
+        <small>Country</small>
+      </div>
+
+      <div class="stat">
+        <b>${p?.is_verified ? '✓' : '—'}</b>
+        <small>Verified</small>
+      </div>
+
+      <div class="stat">
+        <b>$${Number(p?.hourly_rate || 0)}</b>
+        <small>Hourly rate</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="post-body">
+
+        <button class="primary" id="editProfileBtn">
+          ✏️ Edit Profile
+        </button>
+
+        <button class="tool" id="profileChallenges">
+          🏆 My Challenges
+        </button>
+
+        <button class="tool" id="switchRole">
+          🔄 Switch Client / Freelancer
+        </button>
+
+        <button class="tool" id="logoutBtn">
+          🚪 Log out
+        </button>
+
+      </div>
+    </div>
+  `);
+
+  document.getElementById('editProfileBtn').onclick = () => {
+    editProfilePage(p);
+  };
+
+  document.getElementById('profileChallenges').onclick = () => {
+    state.page = 'challenges';
+    render();
+  };
+
+  document.getElementById('switchRole').onclick = chooseRole;
+
+  document.getElementById('logoutBtn').onclick = async () => {
+    await supabase.auth.signOut();
+  };
+}
+
+
+function editProfilePage(p) {
+  shell(`
+    <div class="page">
+
+      <button class="tool" id="backProfile">
+        ← Back to Profile
+      </button>
+
+      <div class="card">
+        <div class="post-body">
+
+          <span class="tag">PROFILE</span>
+
+          <h1>Edit Profile</h1>
+
+          <p class="meta">
+            Make your VYRO profile look professional.
+          </p>
+
+          <label>Display Name</label>
+          <input
+            id="editDisplayName"
+            type="text"
+            maxlength="50"
+            value="${esc(p?.display_name || '')}"
+            placeholder="Your name"
+          />
+
+          <label>Username</label>
+          <input
+            type="text"
+            value="@${esc(p?.username || '')}"
+            disabled
+          />
+
+          <label>Bio</label>
+          <textarea
+            id="editBio"
+            maxlength="300"
+            placeholder="Tell people about yourself..."
+          >${esc(p?.bio || '')}</textarea>
+
+          <label>Country</label>
+          <input
+            id="editCountry"
+            type="text"
+            maxlength="50"
+            value="${esc(p?.country || '')}"
+            placeholder="e.g. Nigeria"
+          />
+
+          <label>Hourly Rate (USD)</label>
+          <input
+            id="editHourlyRate"
+            type="number"
+            min="0"
+            step="1"
+            value="${Number(p?.hourly_rate || 0)}"
+            placeholder="10"
+          />
+
+          <button class="primary" id="saveProfileBtn">
+            💾 Save Profile
+          </button>
+
+          <p id="profileSaveMessage" class="meta"></p>
+
+        </div>
+      </div>
+
+    </div>
+  `);
+
+  document.getElementById('backProfile').onclick = () => {
+    state.page = 'profile';
+    render();
+  };
+
+  document.getElementById('saveProfileBtn').onclick = saveProfile;
+}
+
+
+async function saveProfile() {
+  const user = (await supabase.auth.getUser()).data.user;
+
+  if (!user) return;
+
+  const display_name =
+    document.getElementById('editDisplayName').value.trim();
+
+  const bio =
+    document.getElementById('editBio').value.trim();
+
+  const country =
+    document.getElementById('editCountry').value.trim();
+
+  const hourly_rate =
+    Number(document.getElementById('editHourlyRate').value || 0);
+
+  const message =
+    document.getElementById('profileSaveMessage');
+
+  message.textContent = 'Saving...';
+
+  const { data, error } = await supabase
+    .from('marketplace_profiles')
+    .update({
+      display_name,
+      bio,
+      country,
+      hourly_rate
+    })
+    .eq('id', user.id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    message.textContent =
+      '❌ ' + (error.message || 'Could not save profile.');
+    return;
+  }
+
+  state.profile = data;
+
+  message.textContent = '✅ Profile updated successfully!';
+
+  setTimeout(() => {
+    state.page = 'profile';
+    render();
+  }, 700);
+}
 
   const p =
     await ensureMarketplaceProfile();
